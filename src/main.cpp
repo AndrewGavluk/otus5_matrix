@@ -1,7 +1,11 @@
+#include <iostream>
+
 #include "../libs/lib_matrix.h" 
 int main(){
 
-    Matrix<int>  i1;
-
+    Matrix<int>  i1 (42);
+    i1[1][1] = 43;
+    std::cout << "i1[1][1] = " << i1[1][1] << std::endl;
+    std::cout << "i1[1][2] = " << i1[1][2] << std::endl;
 return 0;
 }
