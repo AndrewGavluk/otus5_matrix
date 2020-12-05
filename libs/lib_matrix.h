@@ -16,13 +16,10 @@ class Matrix
         void setValue(const T&, std::tuple<int, int>);
         int capacity();
 
-        Row<T> operator [] (int p1)
-        {
-            return Row<T>(p1, this);
-        }
+        Row<T> operator [] (int p1) {   return Row<T>(p1, this);}
 
         T getValue(std::tuple<int, int>);
-    
+
     //private:
         T m_default;
         std::map<std::tuple<int,int>, T> m_array;
@@ -33,26 +30,17 @@ class Row
 {
     public:
     Row(int p1, Matrix<T>* Matrix): pos{p1}, m_Matrix{Matrix}{}
-    T& operator [] (int p1)
+    Warper<T> operator [] (int p1)
         {
-            auto key = std::make_tuple(pos, p1);  
+            auto key = std::make_tuple(pos, p1); 
             auto found =  m_Matrix->m_array.find(key);
                 
-            if (found != m_Matrix->m_array.end()){
-                T& foundElem = found->second;
-                return foundElem;
-            }
-            
-            T& foundElem = m_Matrix->m_default;
-            return foundElem;
+            if (found != m_Matrix->m_array.end())
+                return Warper<T>(found->second, m_Matrix, false);
 
-            /*m_Matrix->m_array.insert({key,m_Matrix->m_default});
-            
-            auto found =  m_Matrix->m_array.find(key);
-            T& foundElem = found->second;
-            return foundElem*/;             
+            return Warper<T>(m_Matrix->m_default, m_Matrix, true, key);                
         }
-    private:
+    //private:
         int pos;
         Matrix<T>* m_Matrix;
 };
@@ -61,15 +49,31 @@ template <typename T>
 class Warper
 {
     public:
-        Warper( T& var,  Matrix<T>* Matrix ) : Variable{var}, m_Matrix{Matrix} {};
-        T& operator = (const T&){
-            //hw2Array<T, Alloc> temp(cr);
-            //temp.swap(*this);
-            return *this;}
-   
+        Warper( T& var,  Matrix<T>* Matrix, bool f ) : Variable{var}, m_Matrix{Matrix}, Fake{f} {};
+        Warper( T& var,  Matrix<T>* Matrix, bool f,  std::tuple<int,int> _key) : Variable{var}, m_Matrix{Matrix}, key{_key}, Fake{f} {};
+        
+        T& operator = (const T& value){    
+            m_Matrix->m_array.insert({key,m_Matrix->m_default});   
+            auto found =  m_Matrix->m_array.find(key);
+            found->second = value;
+            return found->second;
+        }
+        
+        template<typename T1>
+        friend std::ostream& operator<< (std::ostream &, const Warper<T1>&);
+    
    
     private:
         T& Variable;
         Matrix<T>* m_Matrix;
+        std::tuple<int,int> key;
+        bool Fake;
 
 };
+
+template <typename T>
+std::ostream& operator<< (std::ostream &out, const Warper<T>& Warp)
+{
+    out << Warp.Variable;
+    return out;    
+}
