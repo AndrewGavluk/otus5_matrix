@@ -7,7 +7,7 @@ add_executable(gtest_matrix test_matrix.cpp)
 
 set_target_properties(gtest_matrix 
 	PROPERTIES 
-	CXX_STANDARD 14
+	CXX_STANDARD 17
 	CXX_STANDARD_REQUIRED ON
 	INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS})
 	

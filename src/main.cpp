@@ -1,7 +1,7 @@
 #include "../libs/lib_matrix.h" 
 int main(){
 
-    magic<3, int> m3;
-    (void)m3;
+    Matrix<int>  i1;
+
 return 0;
 }
