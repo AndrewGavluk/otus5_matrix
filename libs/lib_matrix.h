@@ -18,14 +18,26 @@ class Matrix
         void show (std::ostream & out, std::tuple<int,int>& , std::tuple<int,int>& );
         Row<T> operator [] (int p1) {   return Row<T>(p1, this);}
         T getValue(std::tuple<int, int>);
-
+        
+        void show(Matrix<T>& Matr, 
+            std::tuple<int,int>& from, 
+            std::tuple<int,int>& to );
     //private
         T m_default;
         std::map<std::tuple<int,int>, T> m_array;
         int i, j;
 }; 
 
-
+template <typename T>
+void Matrix<T>::show(Matrix<T>& Matr, 
+            std::tuple<int,int>& from, 
+            std::tuple<int,int>& to ){   
+    for (auto i=std::get<0>(from); i<=std::get<0>(to); ++i){
+        for (auto j=std::get<1>(from); j<=std::get<1>(to); ++j)
+            std::cout << Matr[i][j] << " ";
+        std::cout << std::endl;
+        }
+}
 
 template <typename T>
 class Row

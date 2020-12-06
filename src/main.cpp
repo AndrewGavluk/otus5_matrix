@@ -41,11 +41,6 @@ int main(){
     auto from = std::make_tuple<int, int>(1,1);
     auto to = std::make_tuple<int, int>(8,8);
     show(i1, from, to);
- 
-
-
-    //i1.show(std::cout, from, to);
-    //i1[1][3];
 
 return 0;
 }
@@ -56,8 +51,6 @@ void show(Matrix<T>& Matr,
             std::tuple<int,int>& from, 
             std::tuple<int,int>& to )
 {   
-    //std::tuple<int,int> key;
-    //T found;
     for (auto i=std::get<0>(from); i<=std::get<0>(to); ++i){
         for (auto j=std::get<1>(from); j<=std::get<1>(to); ++j)
             std::cout << Matr[i][j] << " ";
