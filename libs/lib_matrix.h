@@ -14,16 +14,18 @@ class Matrix
     public:
         Matrix( T value): m_default{value} {};
         void setValue(const T&, std::tuple<int, int>);
-        int capacity();
-
+        int capacity() {return m_array.size();};
+        void show (std::ostream & out, std::tuple<int,int>& , std::tuple<int,int>& );
         Row<T> operator [] (int p1) {   return Row<T>(p1, this);}
-
         T getValue(std::tuple<int, int>);
 
-    //private:
+    //private
         T m_default;
         std::map<std::tuple<int,int>, T> m_array;
+        int i, j;
 }; 
+
+
 
 template <typename T>
 class Row
