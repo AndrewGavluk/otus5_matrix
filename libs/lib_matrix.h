@@ -11,6 +11,9 @@ class Warper;
 template <typename T>
 class Matrix
 {
+    friend class Row<T>;
+    friend class Warper<T>;
+
     public:
         Matrix( T value): m_default{value} {};
         void setValue(const T&, std::tuple<int, int>);
@@ -22,7 +25,7 @@ class Matrix
         void show(Matrix<T>& Matr, 
             std::tuple<int,int>& from, 
             std::tuple<int,int>& to );
-    //private
+    private:
         T m_default;
         std::map<std::tuple<int,int>, T> m_array;
         int i, j;
