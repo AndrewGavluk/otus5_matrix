@@ -22,8 +22,7 @@ class Matrix
         Row<T> operator [] (int p1) {   return Row<T>(p1, this);}
         T getValue(std::tuple<int, int>);
         
-        void show(Matrix<T>& Matr, 
-            std::tuple<int,int>& from, 
+        void show(std::tuple<int,int>& from, 
             std::tuple<int,int>& to );
     private:
         T m_default;
@@ -32,12 +31,11 @@ class Matrix
 }; 
 
 template <typename T>
-void Matrix<T>::show(Matrix<T>& Matr, 
-            std::tuple<int,int>& from, 
+void Matrix<T>::show(std::tuple<int,int>& from, 
             std::tuple<int,int>& to ){   
     for (auto i=std::get<0>(from); i<=std::get<0>(to); ++i){
         for (auto j=std::get<1>(from); j<=std::get<1>(to); ++j)
-            std::cout << Matr[i][j] << " ";
+            std::cout << this->operator[](i)[j] << " ";
         std::cout << std::endl;
         }
 }
@@ -69,7 +67,10 @@ class Warper
         Warper( T& var,  Matrix<T>* Matrix, bool f ) : Variable{var}, m_Matrix{Matrix}, Fake{f} {};
         Warper( T& var,  Matrix<T>* Matrix, bool f,  std::tuple<int,int> _key) : Variable{var}, m_Matrix{Matrix}, key{_key}, Fake{f} {};
         
-        T& operator = (const T& value){    
+        T& operator = (const T& value){ 
+            if (value == m_Matrix->m_default)
+                return m_Matrix->m_default;
+
             m_Matrix->m_array.insert({key,m_Matrix->m_default});   
             auto found =  m_Matrix->m_array.find(key);
             found->second = value;

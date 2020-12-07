@@ -38,9 +38,18 @@ int main(){
     i1[8][1] = 1;
     i1[9][0] = 0;
 
+    // set to default value
+    i1[5][3] = 42;
+    i1[2][9] = 42;
+
     auto from = std::make_tuple<int, int>(1,1);
     auto to = std::make_tuple<int, int>(8,8);
-    show(i1, from, to);
+    //show(i1, from, to);
+    i1.show(from, to);
+
+    std::cout << std::endl;
+
+    std::cout << "size =" << i1.capacity() << std::endl;
 
 return 0;
 }
