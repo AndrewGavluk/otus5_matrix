@@ -44,12 +44,14 @@ int main(){
 
     auto from = std::make_tuple<int, int>(1,1);
     auto to = std::make_tuple<int, int>(8,8);
-    //show(i1, from, to);
-    i1.show(from, to);
 
+    i1.show(from, to);
     std::cout << std::endl;
 
-    std::cout << "size =" << i1.capacity() << std::endl;
+    i1.print();
+    std::cout << std::endl;
+
+    std::cout << "size = " << i1.capacity() << std::endl;
 
 return 0;
 }

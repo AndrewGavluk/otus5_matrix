@@ -18,6 +18,6 @@ else()
 	target_compile_options(gtest_matrix PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 							
-target_link_libraries(gtest_matrix gtest pthread libmatrix)
+target_link_libraries(gtest_matrix gtest pthread)
 							
 add_test(gtest_matrix_test1 gtest_matrix)
