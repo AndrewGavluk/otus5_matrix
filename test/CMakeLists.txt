@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.2)
 enable_testing()
 
 find_package(GTest REQUIRED)
-include_directories()
+
 add_executable(gtest_matrix test_matrix.cpp)
+target_include_directories(gtest_matrix PUBLIC ../libs)
 
 set_target_properties(gtest_matrix 
 	PROPERTIES 

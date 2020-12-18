@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../libs/lib_matrix.h" 
+#include "lib_matrix.h" 
 
 template <typename T>
 void show(Matrix<T>& Matr, 
