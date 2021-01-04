@@ -4,6 +4,8 @@
 #include <tuple>
 #include <iostream>
 
+using aIndex = std::tuple<int,int>;
+
 template <typename T>
 class Matrix;
 
@@ -12,7 +14,7 @@ class Warper
 {
     public:
         Warper( T& var,  Matrix<T>& Matrix, bool f ) : Variable{var}, m_Matrix{Matrix}, Fake{f} {};
-        Warper( T& var,  Matrix<T>& Matrix, bool f,  std::tuple<int,int> _key) : Variable{var}, m_Matrix{Matrix}, key{_key}, Fake{f} {};
+        Warper( T& var,  Matrix<T>& Matrix, bool f,  aIndex _key) : Variable{var}, m_Matrix{Matrix}, key{_key}, Fake{f} {};
         
         T& operator = (const T& value){ 
             if (value == m_Matrix.m_default){
@@ -42,7 +44,7 @@ class Warper
     private:
         T& Variable;
         Matrix<T>& m_Matrix;
-        std::tuple<int,int> key;
+        aIndex key;
         bool Fake;
 
 };
@@ -84,7 +86,7 @@ class Matrix
         Matrix( T value): m_default{value}, i{0}, j{0} {};
         int capacity(){return m_array.size();};
 
-    void show(std::tuple<int,int>& from, std::tuple<int,int>& to ){   
+    void show(aIndex& from, aIndex& to ){   
     for (auto i=std::get<0>(from); i<=std::get<0>(to); ++i){
         for (auto j=std::get<1>(from); j<=std::get<1>(to); ++j)
             std::cout << this->operator[](i)[j] << " ";
@@ -100,14 +102,13 @@ class Matrix
                     << "][" <<  std::get<1>(i.first)  
                     << "]="  << i.second << std::endl ;
         }
-
     }
 
         Row<T> operator [] (int p1){  
             return Row<T>(p1, *this);};   
     private:
         T m_default;
-        std::map<std::tuple<int,int>, T> m_array;
+        std::map<aIndex, T> m_array;
         int i, j;
 }; 
 
